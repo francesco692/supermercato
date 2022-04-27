@@ -3,8 +3,8 @@ package com.superm.supermercato;
 public class Prodotto {
     private String nome;
     private String tipologia;
-    private float prezzo;
-    Prodotto(String nome, String tipologia, float prezzo)
+    private double prezzo;
+    Prodotto(String nome, String tipologia, double prezzo)
     {
        this.nome = nome;
        this.tipologia = tipologia;
@@ -18,7 +18,7 @@ public class Prodotto {
     {
         return tipologia;
     }
-    public float getPrezzo()
+    public double getPrezzo()
     {
         return prezzo;
     }
@@ -31,7 +31,7 @@ public class Prodotto {
     {
         this.tipologia = tipologia;
     }
-    public void setPrezzo(float prezzo)
+    public void setPrezzo(double prezzo)
     {
         this.prezzo = prezzo;
     }

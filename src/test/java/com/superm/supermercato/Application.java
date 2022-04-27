@@ -20,17 +20,18 @@ public class Application implements CommandLineRunner
 	@Override
 	public void run(String... args) throws Exception
 	{
-		prodotti.add( new Prodotto("argo", "biscotto", (float) 3.13));
-		prodotti.add( new Prodotto("varso", "formaggio", (float) 5.00));
-		prodotti.add( new Prodotto("nascondini", "biscotto", (float) 1.15));
-		prodotti.add( new Prodotto("manzo", "carne", (float) 15.50));
-		prodotti.add( new Prodotto("barilla", "pasta", (float) 4.50));
+		prodotti.add( new Prodotto("argo", "biscotto", 3.13));
+		prodotti.add( new Prodotto("varso", "formaggio", 5.00));
+		prodotti.add( new Prodotto("nascondini", "biscotto", 1.15));
+		prodotti.add( new Prodotto("manzo", "carne", 15.50));
+		prodotti.add( new Prodotto("barilla", "pasta", 4.50));
 
 		int scelta = 0;
 		while (scelta != 999)
 		{
 			System.out.println(" ");
 			System.out.println("1 -> visualizza tutti i prodotti");
+			System.out.println("2 -> visualizza il valore totale della merce");
 			System.out.println(" ");
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("inserisci scelta -> ");
@@ -38,14 +39,28 @@ public class Application implements CommandLineRunner
 			switch (scelta)
 			{
 				case 1:
-					for(Prodotto item: prodotti)
-					{
-						System.out.println(item.getNome() + " prezzo: " + item.getPrezzo());
-					}
+					stampaProdotti();
+				break;
+				case 2:
+					stampaValore();
 				break;
 			}
 		}
 	}
-
-
+	void stampaProdotti()
+	{
+		for(Prodotto item: prodotti)
+		{
+			System.out.println(item.getNome() + " prezzo: " + item.getPrezzo());
+		}
+	}
+	void stampaValore()
+	{
+		double valore = 0;
+		for(Prodotto item: prodotti)
+		{
+			valore = item.getPrezzo() + valore;
+		}
+		System.out.println(valore);
+	}
 }
