@@ -36,6 +36,7 @@ public class Application implements CommandLineRunner
 			System.out.println("2 -> visualizza il valore totale della merce");
 			System.out.println("3 -> ricerca prodotti per tipologia");
 			System.out.println("4 -> ricerca prodotti per prezzo");
+			System.out.println("5 -> acquista un prodotto");
 			System.out.println(" ");
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("inserisci scelta -> ");
@@ -59,6 +60,12 @@ public class Application implements CommandLineRunner
 					scanner = new Scanner(System.in);
 					double prezzo = scanner.nextDouble();
 					getPPrezzo(prezzo);
+				break;
+				case 5:
+					System.out.println("inserisci il nome di un prodotto -> ");
+					scanner = new Scanner(System.in);
+					String nomeProdotto = scanner.nextLine();
+					getSpesa(nomeProdotto);
 				break;
 			}
 		}
@@ -90,5 +97,22 @@ public class Application implements CommandLineRunner
 		Stream<Prodotto> prodotto1Stream = prodotti.stream();
 		ArrayList<Prodotto> prodottos1 = (ArrayList<Prodotto>) prodotto1Stream.filter(element -> element.getPrezzo() == prezzo).collect(Collectors.toList());
 		prodottos1.forEach(element -> System.out.println(element.getNome() + " " + element.getTipologia()));
+	}
+	boolean getSpesa (String nome)
+	{
+		boolean result = true;
+		boolean result1 = true;
+		for(Prodotto item: prodotti)
+		{
+			if(item.getNome().equals(nome))
+			{
+				result1 = true;
+				break;
+			}
+			else
+			{
+				result1 = false;
+			}
+		}
 	}
 }
