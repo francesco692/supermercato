@@ -8,6 +8,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner
@@ -32,6 +34,8 @@ public class Application implements CommandLineRunner
 			System.out.println(" ");
 			System.out.println("1 -> visualizza tutti i prodotti");
 			System.out.println("2 -> visualizza il valore totale della merce");
+			System.out.println("3 -> ricerca prodotti per tipologia");
+			System.out.println("4 -> ricerca prodotti per prezzo");
 			System.out.println(" ");
 			Scanner scanner = new Scanner(System.in);
 			System.out.print("inserisci scelta -> ");
@@ -44,6 +48,11 @@ public class Application implements CommandLineRunner
 				case 2:
 					stampaValore();
 				break;
+				case 3:
+					System.out.println("inserisci la tipologia del prodotto da ricercare -> ");
+					scanner = new Scanner(System.in);
+					String tipologia = scanner.nextLine();
+					getProdotto(tipologia);
 			}
 		}
 	}
@@ -62,5 +71,11 @@ public class Application implements CommandLineRunner
 			valore = item.getPrezzo() + valore;
 		}
 		System.out.println(valore);
+	}
+	void getProdotto(String tipologia)
+	{
+		Stream<Prodotto> prodottoStream = prodotti.stream();
+		ArrayList<Prodotto> prodottos = (ArrayList<Prodotto>) prodottoStream.filter(element -> element.getTipologia().equals(tipologia)).collect(Collectors.toList());
+		prodottos.forEach(element -> System.out.println(element.getNome() + " " + element.getPrezzo()));
 	}
 }
