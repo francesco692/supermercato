@@ -53,6 +53,13 @@ public class Application implements CommandLineRunner
 					scanner = new Scanner(System.in);
 					String tipologia = scanner.nextLine();
 					getProdotto(tipologia);
+				break;
+				case 4:
+					System.out.println("inserisci il prezzo del prodotto da ricercare -> ");
+					scanner = new Scanner(System.in);
+					double prezzo = scanner.nextDouble();
+					getPPrezzo(prezzo);
+				break;
 			}
 		}
 	}
@@ -77,5 +84,11 @@ public class Application implements CommandLineRunner
 		Stream<Prodotto> prodottoStream = prodotti.stream();
 		ArrayList<Prodotto> prodottos = (ArrayList<Prodotto>) prodottoStream.filter(element -> element.getTipologia().equals(tipologia)).collect(Collectors.toList());
 		prodottos.forEach(element -> System.out.println(element.getNome() + " " + element.getPrezzo()));
+	}
+	void getPPrezzo(double prezzo)
+	{
+		Stream<Prodotto> prodotto1Stream = prodotti.stream();
+		ArrayList<Prodotto> prodottos1 = (ArrayList<Prodotto>) prodotto1Stream.filter(element -> element.getPrezzo() == prezzo).collect(Collectors.toList());
+		prodottos1.forEach(element -> System.out.println(element.getNome() + " " + element.getTipologia()));
 	}
 }
