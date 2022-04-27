@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class Application implements CommandLineRunner
 {
 	ArrayList<Prodotto> prodotti = new ArrayList<>();
+	ArrayList<Spesa> spesa = new ArrayList<>();
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
