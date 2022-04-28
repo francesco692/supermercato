@@ -62,10 +62,26 @@ public class Application implements CommandLineRunner
 					getPPrezzo(prezzo);
 				break;
 				case 5:
-					System.out.println("inserisci il nome di un prodotto -> ");
+					System.out.println("vuoi acquistare un prodotto? si/no -> ");
 					scanner = new Scanner(System.in);
-					String nomeProdotto = scanner.nextLine();
-					getSpesa(nomeProdotto);
+					String risposta = scanner.nextLine();
+					if (risposta == "si")
+					{
+						System.out.println("possiedi una carta? si/no -> ");
+						scanner = new Scanner(System.in);
+						String carta = scanner.nextLine();
+						if(carta == "si")
+						{
+							System.out.println("inserisci il nome di un prodotto -> ");
+							scanner = new Scanner(System.in);
+							String nomeProdotto = scanner.nextLine();
+							getSpesa(nomeProdotto);
+						}
+					}
+					else
+					{
+						System.out.println("arrivederci");
+					}
 				break;
 			}
 		}
@@ -98,13 +114,13 @@ public class Application implements CommandLineRunner
 		ArrayList<Prodotto> prodottos1 = (ArrayList<Prodotto>) prodotto1Stream.filter(element -> element.getPrezzo() == prezzo).collect(Collectors.toList());
 		prodottos1.forEach(element -> System.out.println(element.getNome() + " " + element.getTipologia()));
 	}
-	boolean getSpesa (String nome)
+	boolean getSpesa (String nomeProdotto)
 	{
 		boolean result = true;
 		boolean result1 = true;
 		for(Prodotto item: prodotti)
 		{
-			if(item.getNome().equals(nome))
+			if(item.getNome().equals(nomeProdotto))
 			{
 				result1 = true;
 				break;
@@ -113,6 +129,16 @@ public class Application implements CommandLineRunner
 			{
 				result1 = false;
 			}
+			if (result1)
+			{
+				boolean result3 = true;
+				if (spesa.size() == 0)
+				{
+					spesa.add(new Spesa(nomeProdotto, float costoProdotto));
+					return result3;
+				}
+			}
 		}
+		return result;
 	}
 }
