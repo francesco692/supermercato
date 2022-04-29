@@ -75,7 +75,14 @@ public class Application implements CommandLineRunner
 							System.out.println("inserisci il nome di un prodotto -> ");
 							scanner = new Scanner(System.in);
 							String nomeProdotto = scanner.nextLine();
-							getSpesa(nomeProdotto);
+							getSpesa1(nomeProdotto);
+						}
+						else
+						{
+							System.out.println("inserisci il nome di un prodotto -> ");
+							scanner = new Scanner(System.in);
+							String nomeProdotto = scanner.nextLine();
+							getSpesa2(nomeProdotto);
 						}
 					}
 					else
@@ -114,7 +121,7 @@ public class Application implements CommandLineRunner
 		ArrayList<Prodotto> prodottos1 = (ArrayList<Prodotto>) prodotto1Stream.filter(element -> element.getPrezzo() == prezzo).collect(Collectors.toList());
 		prodottos1.forEach(element -> System.out.println(element.getNome() + " " + element.getTipologia()));
 	}
-	boolean getSpesa (String nomeProdotto)
+	boolean getSpesa1 (String nomeProdotto)
 	{
 		boolean result = true;
 		boolean result1 = true;
