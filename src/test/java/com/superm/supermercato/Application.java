@@ -6,6 +6,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.stream.Collectors;
@@ -16,6 +17,8 @@ public class Application implements CommandLineRunner
 {
 	ArrayList<Prodotto> prodotti = new ArrayList<>();
 	ArrayList<Spesa> spesa = new ArrayList<>();
+	ArrayList<Spesa> carrello = new ArrayList<>();
+	int sconto = 20;
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
 	}
@@ -65,24 +68,44 @@ public class Application implements CommandLineRunner
 					System.out.println("vuoi acquistare un prodotto? si/no -> ");
 					scanner = new Scanner(System.in);
 					String risposta = scanner.nextLine();
-					if (risposta == "si")
+					if (risposta.equals("si"))
 					{
 						System.out.println("possiedi una carta? si/no -> ");
 						scanner = new Scanner(System.in);
 						String carta = scanner.nextLine();
-						if(carta == "si")
+						if(carta.equals("si"))
 						{
-							System.out.println("inserisci il nome di un prodotto -> ");
-							scanner = new Scanner(System.in);
-							String nomeProdotto = scanner.nextLine();
-							getSpesa1(nomeProdotto);
+							while(!risposta.equals("no"))
+							{
+								System.out.println("inserisci il nome di un prodotto -> ");
+								scanner = new Scanner(System.in);
+								String nomeProdotto = scanner.nextLine();
+								prodotti.forEach((element) ->
+								{
+									if (element.getNome().equals(nomeProdotto)) carrello.add(new Spesa(element.getNome(), element.getPrezzo()));
+								});
+								System.out.println("vuoi continuare ad acquistare? ->");
+								scanner = new Scanner(System.in);
+								risposta = scanner.nextLine();
+							}
+							pagamento(sconto);
 						}
 						else
 						{
-							System.out.println("inserisci il nome di un prodotto -> ");
-							scanner = new Scanner(System.in);
-							String nomeProdotto = scanner.nextLine();
-							getSpesa2(nomeProdotto);
+							while(!risposta.equals("no"))
+							{
+								System.out.println("inserisci il nome di un prodotto -> ");
+								scanner = new Scanner(System.in);
+								String nomeProdotto = scanner.nextLine();
+								prodotti.forEach((element) ->
+								{
+									if (element.getNome().equals(nomeProdotto)) carrello.add(new Spesa(element.getNome(), element.getPrezzo()));
+								});
+								System.out.println("vuoi continuare ad acquistare? ->");
+								scanner = new Scanner(System.in);
+								risposta = scanner.nextLine();
+							}
+							pagamento(0);
 						}
 					}
 					else
@@ -121,31 +144,17 @@ public class Application implements CommandLineRunner
 		ArrayList<Prodotto> prodottos1 = (ArrayList<Prodotto>) prodotto1Stream.filter(element -> element.getPrezzo() == prezzo).collect(Collectors.toList());
 		prodottos1.forEach(element -> System.out.println(element.getNome() + " " + element.getTipologia()));
 	}
-	boolean getSpesa1 (String nomeProdotto)
+	void pagamento (int sconto)
 	{
-		boolean result = true;
-		boolean result1 = true;
-		for(Prodotto item: prodotti)
+		double totale = 0;
+		for (Spesa item: carrello)
 		{
-			if(item.getNome().equals(nomeProdotto))
-			{
-				result1 = true;
-				break;
-			}
-			else
-			{
-				result1 = false;
-			}
-			if (result1)
-			{
-				boolean result3 = true;
-				if (spesa.size() == 0)
-				{
-					spesa.add(new Spesa(nomeProdotto, float costoProdotto));
-					return result3;
-				}
-			}
+			totale += item.getCostoProdotto();
 		}
-		return result;
+		totale = totale - (totale * sconto ) / 100;
+		DecimalFormat df = new DecimalFormat("####0.00");
+		System.out.println();
+		System.out.println(df.format(totale));
+		carrello.clear();
 	}
 }

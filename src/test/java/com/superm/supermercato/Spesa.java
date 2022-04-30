@@ -2,8 +2,8 @@ package com.superm.supermercato;
 
 public class Spesa {
     private String nomeProdotto;
-    private float costoProdotto;
-    Spesa(String nomeProdotto, float costoProdotto)
+    private double costoProdotto;
+    Spesa(String nomeProdotto, double costoProdotto)
     {
         this.nomeProdotto = nomeProdotto;
         this.costoProdotto = costoProdotto;
@@ -12,7 +12,7 @@ public class Spesa {
     {
         return nomeProdotto;
     }
-    public float getCostoProdotto()
+    public double getCostoProdotto()
     {
         return costoProdotto;
     }
@@ -21,7 +21,7 @@ public class Spesa {
     {
         this.nomeProdotto = nomeProdotto;
     }
-    public void setCostoProdotto(float costoProdotto)
+    public void setCostoProdotto(double costoProdotto)
     {
         this.costoProdotto = costoProdotto;
     }
